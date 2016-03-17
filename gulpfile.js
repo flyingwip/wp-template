@@ -19,6 +19,9 @@ var runSequence  = require('run-sequence');
 var sass         = require('gulp-sass');
 var sourcemaps   = require('gulp-sourcemaps');
 var uglify       = require('gulp-uglify');
+var notify       = require('gulp-notify');
+var compass      = require('gulp-compass');
+
 
 // See https://github.com/austinpray/asset-builder
 var manifest = require('asset-builder')('./assets/manifest.json');
@@ -183,6 +186,24 @@ gulp.task('styles', ['wiredep'], function() {
     .pipe(writeToManifest('styles'));
 });
 
+
+gulp.task('compass', function() {
+  gulp.src('./assets/styles/*.scss')
+    .pipe(compass({
+      config_file: './config.rb',
+      css: 'dist/styles',
+      sass: 'assets/styles'
+    }))
+    .pipe(gulp.dest('./'))
+    .pipe(notify({ message: 'Compass task complete' }));
+    
+    gulp.task('styles');
+    
+
+});
+
+
+
 // ### Scripts
 // `gulp scripts` - Runs JSHint then compiles, combines, and optimizes Bower JS
 // and project JS.
@@ -252,6 +273,7 @@ gulp.task('watch', function() {
     }
   });
   gulp.watch([path.source + 'styles/**/*'], ['styles']);
+  //gulp.watch([path.source + 'styles/**/*'], ['compass']);
   gulp.watch([path.source + 'scripts/**/*'], ['jshint', 'scripts']);
   gulp.watch([path.source + 'fonts/**/*'], ['fonts']);
   gulp.watch([path.source + 'images/**/*'], ['images']);
@@ -262,10 +284,12 @@ gulp.task('watch', function() {
 // `gulp build` - Run all the build tasks but don't clean up beforehand.
 // Generally you should be running `gulp` instead of `gulp build`.
 gulp.task('build', function(callback) {
+  /*
   runSequence('styles',
               'scripts',
               ['fonts', 'images'],
               callback);
+  */              
 });
 
 // ### Wiredep

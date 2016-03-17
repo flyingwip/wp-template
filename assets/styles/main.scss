@@ -1,11 +1,163 @@
 @import "common/variables";
+@import "../../node_modules/susy/sass/_susy.scss";
+
 
 // Automatically injected Bower dependencies via wiredep (never manually edit this block)
 // bower:scss
-@import "../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+/*
 @import "common/global";
+@import "common/menu";
+*/
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800);
+
+// Configuring Susy defaults
+$susy: (
+  flow: ltr,
+  math: fluid,
+  output: float,
+  gutter-position: after,
+  container: auto,
+  container-position: center,
+  columns: 12,
+  gutters: .1,
+  column-width: false,
+  global-box-sizing: border-box,
+  last-flow: to,
+  debug: (
+    image: show,
+    color: rgba(#66f, .25),
+    output: background,
+    toggle: top right,
+  ),
+  use-custom: (
+    background-image: true,
+    background-options: false,
+    box-sizing: true,
+    clearfix: true,
+    rem: true,
+  )
+);
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@include border-box-sizing;
+
+/**
+ * Styles for AG grids & Container
+ */
+
+ body{
+  margin: 0;
+ }
+
+.blaat {
+   @include container;
+   @include clearfix; 
+   background-color: #fbeecb;
+   text-align: center;
+   font-family: 'Open Sans';
+
+   //the colors AE4000
+   --stone: #AE4000;
+   --dusk: #F47400;
+   --dawn: #F59F04;
+   --hazed: #F59F04;
+   --noon: #FCF500;
+   background-color: var(--stone);
+
+   h1{
+    color:#FFF;
+   }
+}
+
+.ag1, .ag3 {
+  background-color: var(--dusk);
+}
+
+.ag2 {
+  background-color: var(--dusk);
+}
+
+.ag4,.ag5,.ag8,.ag9 {
+  background-color: var(--noon);
+}
+
+.ag6 {
+  background-color: var(--hazed);
+}
+
+.ag7 {
+  background-color: var(--stone);
+}
+
+.ag10 {
+  background-color: var(--dawn);
+}
+
+/**
+ * Text Styles
+ */
+h2 {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: normal;
+  padding-top: 1.8rem;
+  padding-bottom: 1.8rem;
+}
+
+.ag1 {
+  @include span(2 of 10);
+}
+
+.ag2 {
+  @include span(6 of 10);
+  @include clearfix; 
+}
+
+.ag3 {
+  @include span(2 of 10 last);
+}
+
+.ag4,.ag5 {
+  @include span(3 of 6);
+}
+.ag5 {
+  @include last;
+}
+
+.ag6 {
+  @include span(2 of 6);
+}
+
+.ag7 {
+  @include span(4 of 6 last);
+  @include clearfix;
+}
+
+.ag8 {
+  @include span(2 of 4);
+}
+
+.ag9 {
+  @include span(2 of 4 last);
+}
+
+.ag10 {
+  clear: both;
+  // Alternatively, you can now use the span mixin with the full keyword to tell Susy this should be a 100% width 
+  // @include span(full);
+}
+
+/*
 @import "components/buttons";
 @import "components/comments";
 @import "components/forms";
@@ -17,3 +169,5 @@
 @import "layouts/pages";
 @import "layouts/posts";
 @import "layouts/tinymce";
+*/
+
